@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using WeatherMob.Data;
 
 namespace WeatherMob.Data.Migrations
 {
@@ -15,7 +13,7 @@ namespace WeatherMob.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc3")
+                .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -131,6 +129,8 @@ namespace WeatherMob.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<int>("Age");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -174,6 +174,39 @@ namespace WeatherMob.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("WeatherMob.Models.WeatherEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("City")
+                        .IsRequired();
+
+                    b.Property<int>("Hi");
+
+                    b.Property<int>("Low");
+
+                    b.Property<bool?>("Precip");
+
+                    b.Property<int?>("PrecipAmount");
+
+                    b.Property<int?>("PrecipType");
+
+                    b.Property<DateTime>("PredictionDay");
+
+                    b.Property<DateTime>("TargetDay");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("WeatherEntries");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -209,6 +242,13 @@ namespace WeatherMob.Data.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WeatherMob.Models.WeatherEntry", b =>
+                {
+                    b.HasOne("WeatherMob.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("WeatherEntries")
+                        .HasForeignKey("ApplicationUserId");
                 });
         }
     }
