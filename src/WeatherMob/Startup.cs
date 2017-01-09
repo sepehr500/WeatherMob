@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 using WeatherMob.Data;
 using WeatherMob.Models;
 using WeatherMob.Services;
+using Hangfire;
+using Hangfire.SqlServer;
+using WeatherMob.Classes;
 
 namespace WeatherMob
 {
@@ -43,12 +46,14 @@ namespace WeatherMob
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddHangfire(x => x.UseSqlServerStorage(@"Server=(localdb)\mssqllocaldb;Database=WeatherMobDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-
+            
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -57,9 +62,11 @@ namespace WeatherMob
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -70,7 +77,9 @@ namespace WeatherMob
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseHangfireServer();
+            RecurringJob.AddOrUpdate(() => DayUpdate.Update() , Cron.MinuteInterval(3));
+            app.UseHangfireDashboard();
             app.UseStaticFiles();
 
             app.UseIdentity();

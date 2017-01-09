@@ -1,7 +1,10 @@
-﻿{
+{
   "userSecretsId": "aspnet-WeatherMob-febc7526-04f8-499f-a8a9-4cc1a3770c1c",
 
   "dependencies": {
+    "Hangfire": "1.6.8",
+    "Hangfire.AspNetCore": "1.6.8",
+    "LinqStatistics": "2.1.0",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",

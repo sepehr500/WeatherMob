@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WeatherMob", "src\WeatherMob\WeatherMob.xproj", "{D4E15085-B48D-495B-A2E8-BA15E16B29C0}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WeatherMob.Tests", "WeatherMob.Tests\WeatherMob.Tests.xproj", "{63ACCB4D-56C9-4DB3-A2E2-58011EDBDE74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +24,16 @@ Global
 		{D4E15085-B48D-495B-A2E8-BA15E16B29C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E15085-B48D-495B-A2E8-BA15E16B29C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E15085-B48D-495B-A2E8-BA15E16B29C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63ACCB4D-56C9-4DB3-A2E2-58011EDBDE74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63ACCB4D-56C9-4DB3-A2E2-58011EDBDE74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63ACCB4D-56C9-4DB3-A2E2-58011EDBDE74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63ACCB4D-56C9-4DB3-A2E2-58011EDBDE74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D4E15085-B48D-495B-A2E8-BA15E16B29C0} = {026E661B-954D-4014-B13C-058F39230BC3}
+		{63ACCB4D-56C9-4DB3-A2E2-58011EDBDE74} = {026E661B-954D-4014-B13C-058F39230BC3}
 	EndGlobalSection
 EndGlobal

@@ -123,6 +123,40 @@ namespace WeatherMob.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WeatherMob.Models.AggregateWeatherPrediction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AmtLarge");
+
+                    b.Property<int>("AmtMed");
+
+                    b.Property<int>("AmtSmall");
+
+                    b.Property<double>("AvgHi");
+
+                    b.Property<double>("AvgLow");
+
+                    b.Property<DateTime>("Day");
+
+                    b.Property<double>("MedianHi");
+
+                    b.Property<double>("MedianLow");
+
+                    b.Property<double>("TotalNoPrecip");
+
+                    b.Property<int>("TotalRain");
+
+                    b.Property<int>("TotalSnow");
+
+                    b.Property<double>("TotalYesPrecip");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AggregateWeatherPredictions");
+                });
+
             modelBuilder.Entity("WeatherMob.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id");
@@ -174,6 +208,20 @@ namespace WeatherMob.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("WeatherMob.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("TimeZone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
+                });
+
             modelBuilder.Entity("WeatherMob.Models.WeatherEntry", b =>
                 {
                     b.Property<int>("Id")
@@ -181,14 +229,13 @@ namespace WeatherMob.Data.Migrations
 
                     b.Property<string>("ApplicationUserId");
 
-                    b.Property<string>("City")
-                        .IsRequired();
+                    b.Property<int>("CityId");
 
                     b.Property<int>("Hi");
 
                     b.Property<int>("Low");
 
-                    b.Property<bool?>("Precip");
+                    b.Property<bool>("Precip");
 
                     b.Property<int?>("PrecipAmount");
 
@@ -198,11 +245,13 @@ namespace WeatherMob.Data.Migrations
 
                     b.Property<DateTime>("TargetDay");
 
-                    b.Property<int?>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("WeatherEntries");
                 });
@@ -249,6 +298,11 @@ namespace WeatherMob.Data.Migrations
                     b.HasOne("WeatherMob.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("WeatherEntries")
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("WeatherMob.Models.City", "City")
+                        .WithMany("WeatherEntries")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

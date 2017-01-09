@@ -8,14 +8,17 @@ using WeatherMob.Models;
 
 namespace WeatherMob.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext :  IdentityDbContext<ApplicationUser> 
     {
         public DbSet<WeatherEntry> WeatherEntries { get; set; }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<AggregateWeatherPrediction> AggregateWeatherPredictions {get; set; }
+ 
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=WeatherMobDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
