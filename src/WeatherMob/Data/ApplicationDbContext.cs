@@ -13,6 +13,7 @@ namespace WeatherMob.Data
         public DbSet<WeatherEntry> WeatherEntries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<AggregateWeatherPrediction> AggregateWeatherPredictions {get; set; }
+        public DbSet<ActualWeatherEntry> ActualWeatherEntries {get; set; }
  
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

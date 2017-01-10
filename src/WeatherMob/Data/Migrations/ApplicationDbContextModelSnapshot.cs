@@ -123,20 +123,46 @@ namespace WeatherMob.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WeatherMob.Models.ActualWeatherEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<float>("ActualHi");
+
+                    b.Property<float>("ActualLow");
+
+                    b.Property<bool>("ActualPrecip");
+
+                    b.Property<int?>("ActualPrecipAmount");
+
+                    b.Property<int?>("ActualPrecipType");
+
+                    b.Property<int>("CityId");
+
+                    b.Property<DateTime>("Day");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("ActualWeatherEntries");
+                });
+
             modelBuilder.Entity("WeatherMob.Models.AggregateWeatherPrediction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AmtLarge");
+                    b.Property<int>("AmtAboveAvg");
 
-                    b.Property<int>("AmtMed");
-
-                    b.Property<int>("AmtSmall");
+                    b.Property<int>("AmtBelowAvg");
 
                     b.Property<double>("AvgHi");
 
                     b.Property<double>("AvgLow");
+
+                    b.Property<int>("CityId");
 
                     b.Property<DateTime>("Day");
 
@@ -153,6 +179,8 @@ namespace WeatherMob.Data.Migrations
                     b.Property<double>("TotalYesPrecip");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("AggregateWeatherPredictions");
                 });
@@ -212,6 +240,12 @@ namespace WeatherMob.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<float>("AvgAccum");
+
+                    b.Property<float>("Lat");
+
+                    b.Property<float>("Long");
 
                     b.Property<string>("Name");
 
@@ -290,6 +324,22 @@ namespace WeatherMob.Data.Migrations
                     b.HasOne("WeatherMob.Models.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WeatherMob.Models.ActualWeatherEntry", b =>
+                {
+                    b.HasOne("WeatherMob.Models.City", "City")
+                        .WithMany("ActualWeatherEntries")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WeatherMob.Models.AggregateWeatherPrediction", b =>
+                {
+                    b.HasOne("WeatherMob.Models.City", "City")
+                        .WithMany("AggregateWeatherPredictions")
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

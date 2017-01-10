@@ -10,7 +10,12 @@ namespace WeatherMob.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int TimeZone { get; set; }
-
+        public float Lat { get; set; }
+        public float Long { get; set; }
+        public float AvgAccum { get; set; }
         public List<WeatherEntry> WeatherEntries { get; set; }
+        public List<AggregateWeatherPrediction> AggregateWeatherPredictions { get; set; }
+        public List<ActualWeatherEntry> ActualWeatherEntries { get; set; }
+
     }
 }

@@ -11,7 +11,7 @@ namespace WeatherMob.Classes
     {
         private const int DaysIntoFuture = 15;
 
-        public static bool DayMonthYearCheck(DateTime x, DateTime y)
+        public static bool DayMonthYearCheck(this DateTime x, DateTime y)
         {
 
             return (x.Day == y.Day && x.Month == y.Month && x.Year == y.Year);
@@ -29,9 +29,9 @@ namespace WeatherMob.Classes
                     {
                         startDay = startDay.AddDays(1);
                         var entries = db.WeatherEntries.Where(k => k.CityId == city.Id && DayMonthYearCheck(k.TargetDay , startDay));
-                        if (entries.Count() != 0)
+                        if (entries.Any())
                         {
-                            if (db.AggregateWeatherPredictions.Count(n => DayMonthYearCheck(n.Day , startDay) ) != 0)
+                            if (db.AggregateWeatherPredictions.Any(n => DayMonthYearCheck(n.Day , startDay) ))
                             {
                                 var updateEntry =
                                     db.AggregateWeatherPredictions.First(y => DayMonthYearCheck(y.Day, startDay));
@@ -45,9 +45,8 @@ namespace WeatherMob.Classes
                                     updateEntry.TotalYesPrecip = entries.Count(n => n.Precip == true);
                                     updateEntry.TotalRain = entries.Count(n => n.PrecipType == PrecipType.Rain);
                                     updateEntry.TotalSnow = entries.Count(n => n.PrecipType == PrecipType.Snow);
-                                    updateEntry.AmtSmall = entries.Count(n => n.PrecipAmount == PrecipAmount.Small);
-                                    updateEntry.AmtMed = entries.Count(n => n.PrecipAmount == PrecipAmount.Medium);
-                                    updateEntry.AmtLarge = entries.Count(n => n.PrecipAmount == PrecipAmount.Large);
+                                    updateEntry.AmtAboveAvg = entries.Count(n => n.PrecipAmount == PrecipAmount.AtOrAboveAverage);
+                                    updateEntry.AmtBelowAvg= entries.Count(n => n.PrecipAmount == PrecipAmount.BelowAverage);
 
 
                                 db.AggregateWeatherPredictions.Update(updateEntry);
@@ -55,8 +54,9 @@ namespace WeatherMob.Classes
                             else
                             {
                                 
-                        db.AggregateWeatherPredictions.Add(new AggregateWeatherPrediction()
-                        {
+                            db.AggregateWeatherPredictions.Add(new AggregateWeatherPrediction()
+                            {
+                            CityId = city.Id,
                             Day = startDay,
                             AvgHi = entries.Average(n => n.Hi),
                             AvgLow = entries.Average(y => y.Low),
@@ -66,10 +66,11 @@ namespace WeatherMob.Classes
                             TotalYesPrecip = entries.Count(n => n.Precip == true),
                             TotalRain = entries.Count(n => n.PrecipType == PrecipType.Rain ),
                             TotalSnow = entries.Count(n => n.PrecipType == PrecipType.Snow ),
-                            AmtSmall= entries.Count(n => n.PrecipAmount == PrecipAmount.Small ),
-                            AmtMed= entries.Count(n => n.PrecipAmount == PrecipAmount.Medium),
-                            AmtLarge= entries.Count(n => n.PrecipAmount == PrecipAmount.Large ),
-                        });
+                                AmtAboveAvg = entries.Count(n => n.PrecipAmount == PrecipAmount.AtOrAboveAverage),
+                                AmtBelowAvg = entries.Count(n => n.PrecipAmount == PrecipAmount.BelowAverage)
+
+
+                            });
                             }
                         }
 

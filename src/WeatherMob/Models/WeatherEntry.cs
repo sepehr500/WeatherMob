@@ -14,9 +14,8 @@ namespace WeatherMob.Models
 
     public enum PrecipAmount
     {
-        Small,
-        Medium,
-        Large
+        AtOrAboveAverage,
+        BelowAverage
 
     }
     public class WeatherEntry

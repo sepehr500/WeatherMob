@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WeatherMob.Classes;
 using WeatherMob.Data;
 using WeatherMob.Models;
 
@@ -16,6 +17,7 @@ namespace WeatherMob.Controllers
         //private readonly UserManager<ApplicationUser> _userManager;
         public IActionResult Index()
         {
+            var n = new DarkSky();
             return View();
         }
 
