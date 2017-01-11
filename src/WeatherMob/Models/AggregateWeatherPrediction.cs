@@ -19,11 +19,10 @@ namespace WeatherMob.Models
         public double TotalYesPrecip { get; set; }
         public double TotalNoPrecip { get; set; }
 
-        public int TotalRain { get; set; }
+        public int? TotalRain { get; set; }
         public int TotalSnow { get; set; }
 
-        public int AmtAboveAvg{ get; set; }
-        public int AmtBelowAvg { get; set; }
+        public float? PrecipAmount{ get; set; }
         public virtual City City { get; set; }
 
     }

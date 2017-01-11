@@ -13,7 +13,7 @@ namespace WeatherMob.Models
         public float ActualLow { get; set; }
         
         public string ActualPrecipType { get; set; }
-        public float ActualPrecipAmount { get; set; }
+        public float? ActualPrecipAmount { get; set; }
         
         public bool ActualPrecip { get; set; }
         public int CityId { get; set; }

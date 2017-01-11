@@ -11,12 +11,12 @@ namespace WeatherMob.Classes
 {
     public interface IActualWeatherApi
     {
-        ActualWeatherEntry GetActualWeatherEntryApi(float Lat, float Long, DateTime day, float AvgAccum);
+        ActualWeatherEntry GetActualWeatherEntryApi(float Lat, float Long, DateTime day);
     }
 
     public  class  DarkSky: IActualWeatherApi
     {
-        public ActualWeatherEntry GetActualWeatherEntryApi(float Lat , float Long , DateTime day , float AvgAccum)
+        public ActualWeatherEntry GetActualWeatherEntryApi(float Lat , float Long , DateTime day )
         {
             var excludeBlocks = new Exclude[]
             {
@@ -57,7 +57,7 @@ namespace WeatherMob.Classes
                     //If there no no entries for that date
                     if (db.ActualWeatherEntries.Any(z => z.Day.DayMonthYearCheck(startDay)) ==false)
                     {
-                        var currentDayWeather = InjectedApi.GetActualWeatherEntryApi(city.Lat, city.Long,startDay,city.AvgAccum);
+                        var currentDayWeather = InjectedApi.GetActualWeatherEntryApi(city.Lat, city.Long,startDay);
                         currentDayWeather.City = city;
                         currentDayWeather.CityId = city.Id;
                         currentDayWeather.Day = startDay;

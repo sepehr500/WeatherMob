@@ -25,7 +25,7 @@ namespace WeatherMob.Models
         public int Low { get; set; }
         public int CityId { get; set; } 
         public PrecipType? PrecipType { get; set; }
-        public PrecipAmount? PrecipAmount{ get; set; }
+        public float? PrecipAmount{ get; set; }
         public bool Precip { get; set; }
         public DateTime PredictionDay { get; set; }
         public DateTime TargetDay { get; set; }

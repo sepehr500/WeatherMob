@@ -31,10 +31,9 @@ namespace WeatherMob.Classes
                         var entries = db.WeatherEntries.Where(k => k.CityId == city.Id && DayMonthYearCheck(k.TargetDay , startDay));
                         if (entries.Any())
                         {
-                            if (db.AggregateWeatherPredictions.Any(n => DayMonthYearCheck(n.Day , startDay) ))
+                                var updateEntry = db.AggregateWeatherPredictions.FirstOrDefault(y => DayMonthYearCheck(y.Day, startDay));
+                            if (updateEntry != null)
                             {
-                                var updateEntry =
-                                    db.AggregateWeatherPredictions.First(y => DayMonthYearCheck(y.Day, startDay));
 
                                 updateEntry.Day = startDay;
                                     updateEntry.AvgHi = entries.Average(n => n.Hi);
@@ -45,8 +44,7 @@ namespace WeatherMob.Classes
                                     updateEntry.TotalYesPrecip = entries.Count(n => n.Precip == true);
                                     updateEntry.TotalRain = entries.Count(n => n.PrecipType == PrecipType.Rain);
                                     updateEntry.TotalSnow = entries.Count(n => n.PrecipType == PrecipType.Snow);
-                                    updateEntry.AmtAboveAvg = entries.Count(n => n.PrecipAmount == PrecipAmount.AtOrAboveAverage);
-                                    updateEntry.AmtBelowAvg= entries.Count(n => n.PrecipAmount == PrecipAmount.BelowAverage);
+                                    updateEntry.PrecipAmount = entries.Average(n => n.PrecipAmount);
 
 
                                 db.AggregateWeatherPredictions.Update(updateEntry);
@@ -66,8 +64,7 @@ namespace WeatherMob.Classes
                             TotalYesPrecip = entries.Count(n => n.Precip == true),
                             TotalRain = entries.Count(n => n.PrecipType == PrecipType.Rain ),
                             TotalSnow = entries.Count(n => n.PrecipType == PrecipType.Snow ),
-                                AmtAboveAvg = entries.Count(n => n.PrecipAmount == PrecipAmount.AtOrAboveAverage),
-                                AmtBelowAvg = entries.Count(n => n.PrecipAmount == PrecipAmount.BelowAverage)
+                            PrecipAmount = entries.Average(n => n.PrecipAmount)
 
 
                             });

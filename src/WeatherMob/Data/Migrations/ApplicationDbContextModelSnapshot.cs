@@ -134,7 +134,7 @@ namespace WeatherMob.Data.Migrations
 
                     b.Property<bool>("ActualPrecip");
 
-                    b.Property<float>("ActualPrecipAmount");
+                    b.Property<float?>("ActualPrecipAmount");
 
                     b.Property<string>("ActualPrecipType");
 
@@ -154,10 +154,6 @@ namespace WeatherMob.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AmtAboveAvg");
-
-                    b.Property<int>("AmtBelowAvg");
-
                     b.Property<double>("AvgHi");
 
                     b.Property<double>("AvgLow");
@@ -170,9 +166,11 @@ namespace WeatherMob.Data.Migrations
 
                     b.Property<double>("MedianLow");
 
+                    b.Property<float?>("PrecipAmount");
+
                     b.Property<double>("TotalNoPrecip");
 
-                    b.Property<int>("TotalRain");
+                    b.Property<int?>("TotalRain");
 
                     b.Property<int>("TotalSnow");
 
@@ -271,7 +269,7 @@ namespace WeatherMob.Data.Migrations
 
                     b.Property<bool>("Precip");
 
-                    b.Property<int?>("PrecipAmount");
+                    b.Property<float?>("PrecipAmount");
 
                     b.Property<int?>("PrecipType");
 
