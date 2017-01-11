@@ -33,16 +33,12 @@ namespace WeatherMob.Classes
             returnObj.ActualPrecip = dayWeather.precipType != null;
             if (dayWeather.precipType != null)
             {
-                returnObj.ActualPrecipType = dayWeather.precipType == "rain" || dayWeather.precipType == "sleet"
-                    ? PrecipType.Rain
-                    : PrecipType.Snow;
+                returnObj.ActualPrecipType = dayWeather.precipType;
             }
-            if (returnObj.ActualPrecipType != null && returnObj.ActualPrecipType == PrecipType.Snow)
+            if (returnObj.ActualPrecipType != null && returnObj.ActualPrecipType == "snow")
             {
 
-                returnObj.ActualPrecipAmount = dayWeather.precipAccumulation > AvgAccum
-                    ? PrecipAmount.AtOrAboveAverage
-                    : PrecipAmount.BelowAverage;
+                returnObj.ActualPrecipAmount = dayWeather.precipAccumulation;
             }
             return returnObj;
         }

@@ -134,9 +134,9 @@ namespace WeatherMob.Data.Migrations
 
                     b.Property<bool>("ActualPrecip");
 
-                    b.Property<int?>("ActualPrecipAmount");
+                    b.Property<float>("ActualPrecipAmount");
 
-                    b.Property<int?>("ActualPrecipType");
+                    b.Property<string>("ActualPrecipType");
 
                     b.Property<int>("CityId");
 
