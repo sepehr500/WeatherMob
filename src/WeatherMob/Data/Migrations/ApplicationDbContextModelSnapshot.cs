@@ -239,6 +239,8 @@ namespace WeatherMob.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Airport");
+
                     b.Property<float>("AvgAccum");
 
                     b.Property<float>("Lat");
@@ -246,6 +248,8 @@ namespace WeatherMob.Data.Migrations
                     b.Property<float>("Long");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("State");
 
                     b.Property<int>("TimeZone");
 

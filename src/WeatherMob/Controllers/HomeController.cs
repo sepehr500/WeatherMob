@@ -18,7 +18,8 @@ namespace WeatherMob.Controllers
         //private readonly UserManager<ApplicationUser> _userManager;
         public IActionResult Index()
         {
-            var n = new DarkSky();
+            var n = new WUGet();
+            //n.GetActualWeatherEntryApi("adsf", "adsf", "adsf", DateTime.Now);
             return View();
         }
 

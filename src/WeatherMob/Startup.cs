@@ -78,7 +78,7 @@ namespace WeatherMob
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseHangfireServer();
-            RecurringJob.AddOrUpdate(() => RecordActualWeather.GetActualWeather() , Cron.MinuteInterval(3));
+            RecurringJob.AddOrUpdate(() => RecordActualWeather.GetActualWeather() , Cron.MinuteInterval(1));
             RecurringJob.AddOrUpdate(() => DayUpdate.Update() , Cron.HourInterval(1));
             app.UseHangfireDashboard();
             app.UseStaticFiles();

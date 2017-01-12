@@ -9,7 +9,9 @@ namespace WeatherMob.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string State { get; set; }
         public int TimeZone { get; set; }
+        public string Airport { get; set; }
         public float Lat { get; set; }
         public float Long { get; set; }
         public float AvgAccum { get; set; }
